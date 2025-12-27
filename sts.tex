@@ -1,0 +1,182 @@
+\documentclass[10pt,a4paper,landscape]{article}
+
+% Pakete für kompaktes Layout und deutsche Umlaute
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[margin=1cm]{geometry}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{siunitx}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+
+% Kompakte Darstellung
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5ex}
+\setlength{\columnsep}{1cm}
+
+% Überschriften anpassen
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{1ex}{0.5ex}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{0.5ex}{0.25ex}
+
+% Kopf- und Fußzeile entfernen
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+\begin{document}
+
+\begin{center}
+  \Large\textbf{Stochastik und Statistik}
+\end{center}
+
+\begin{multicols*}{3}
+  \setlength{\premulticols}{1pt}
+  \setlength{\postmulticols}{1pt}
+  \setlength{\multicolsep}{1pt}
+  \setlength{\columnsep}{2pt}
+
+  \section*{Deskriptive Statistik}
+  \subsection*{Begriffe}
+  \begin{itemize}
+    \item \textbf{Merkmalsträger}: Objekte, über die Informationen gesammelt werden (z.B. Personen, Tiere, Dinge)
+    \item \textbf{Merkmal}: Eigenschaft eines Merkmalsträgers (z.B. Alter, Geschlecht, Größe)
+    \item \textbf{Grundgesamtheit}: Gesamte Menge aller Merkmalsträger
+    \item \textbf{Stichprobe}: Teilmenge der Grundgesamtheit
+    \item \textbf{Vollerhebung}: Untersuchung der gesamten Grundgesamtheit
+    \item \textbf{Ausprägung}: Mögliche Werte eines Merkmals
+  \end{itemize}
+
+  \includegraphics[width=\linewidth]{assets/Markmalstyp.png}
+
+  \subsection*{Relative/Absolute Häufigkeit}
+  \subsubsection*{Nicht klassierte Daten}
+  \begin{equation*}
+    f_i = \frac{h_i}{n}
+  \end{equation*}
+  \subsubsection*{Klassierte Daten}
+  \begin{equation*}
+    f_i = \frac{g(x)}{b_i} \quad \text{mit} \quad g(x) = \frac{h_i}{n}
+  \end{equation*}
+  \begin{itemize}
+    \item $f_i$: relative Häufigkeit der Ausprägung $i$ (PMF)
+    \item $h_i$: absolute Häufigkeit der Ausprägung $i$ 
+    \item $n$: Gesamtanzahl der Beobachtungen
+  \end{itemize}
+
+  \subsection*{Summenhäufigkeit}
+  \subsubsection*{Nicht klassierte Daten}
+  \begin{equation*}
+    H(x) = \sum_{j=1}^{x} h_j \quad \text{bzw.} \quad F(x) = \sum_{j=1}^{x} f_j
+  \end{equation*}
+  \subsubsection*{Klassierte Daten}
+  \begin{equation*}
+    H(x_k) = \sum_{j=1}^{k} h_j \quad \text{bzw.} \quad F(x) = \int_{-\infty}^{x} f(y) \, dy
+  \end{equation*}
+  \begin{itemize}
+    \item $H(x)$: Summe aller absoluten Häufigkeiten bis Ausprägung $x$
+    \item Wenn $h$ absolute Häufigkeit, dann heisst $H$ Summenhäufigkeit
+    \item Wenn $f$ relative Häufigkeit, dann heisst $F$ kumulative Verteilungsfunktion (CDF)
+  \end{itemize}
+
+  \subsection*{Eigenschaften der PMF und CDF nicht klassierter Daten}
+  \begin{itemize}
+    \item $0 \leq f_i \leq 1$ und $0 \leq F(x) \leq 1$
+    \item $\sum_{i} f_i = 1$ bzw. $F(x_{\max}) = 1$
+    \item $F(x)$ ist monoton wachsend $\Rightarrow F(x_1) \leq F(x_2)$ für $x_1 < x_2$
+    \item $F(x)$ ist rechtsstetig heisst der Wert an der Stelle $x$ ist gleich dem Grenzwert von rechts
+  \end{itemize}
+
+  \subsection*{Eigenschaften der PMF und CDF klassierter Daten}
+  \begin{itemize}
+    \item $0 \leq f_i \leq 1$ und $0 \leq F(x) \leq 1$
+    \item $\int_{-\infty}^{\infty} f(x) \,dx = 1$ und $F'(x) = f(x)$
+    \item Für $x \in K_i$ gilt: $\frac{F(x)-F(a_i)}{b_i} = \frac{F(a_{i+1})-F(a_i)}{b_i} = f_i$
+  \end{itemize}
+
+  \subsection*{Klassierte Daten}
+  \begin{itemize}
+    \item Daten werden in Klassen eingeteilt
+    \item Klassenbreite: $b_i = a_{i+1} - a_i$ (mit $a_i$ Klassenuntergrenze)
+    \item Klassenmitte: $M_i = \frac{a_{i+1} - a_i}{2}$ (mit $l$ untere und $u$ obere Klassenbegrenzung)
+    \item Dichte: $d_i = \frac{f_i}{b_i}$
+  \end{itemize}
+
+  \subsection*{Kenngrössen}
+  \begin{itemize}
+    \item \textbf{Arithmetisches Mittel}:
+    \begin{equation*}
+      \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i \quad \text{bzw. wenn klassiert} \quad \bar{x} = \sum_{i=1}^{m} f_i \cdot M_i
+    \end{equation*}
+    
+    \item \textbf{Median}:
+    \begin{equation*}
+      \tilde{x} = 
+      \begin{cases}
+        x_{\frac{n+1}{2}}, & n \text{ ungerade} \\
+        \frac{x_{\frac{n}{2}} + x_{\frac{n}{2}+1}}{2}, & n \text{ gerade}
+      \end{cases}
+    \end{equation*}
+    \item \textbf{Modalwert}:
+    \begin{equation*}
+      \hat{x} = x_i \quad \text{mit } h_i = \max(h_1, h_2, \ldots, h_k)
+    \end{equation*}
+    \item \textbf{Varianz}:
+    \begin{equation*}
+      \tilde{s}^2 = \frac{1}{n} \sum_{i=1}^{n} {(x_i - \bar{x})}^2 \quad \text{(bei klassierten Daten $x_i = M_i$)}
+    \end{equation*}
+    \begin{equation*}
+      \tilde{s}^2 = \overline{x^2} - \bar{x}^2 \quad \text{mit} \quad \overline{x^2} = \frac{1}{n} \sum_{i=1}^{n} x_i^2 
+    \end{equation*}
+    \begin{equation*}
+      s^2 = \frac{1}{n-1} \sum_{i=1}^{n} {(x_i - \bar{x})}^2 \quad  \text{(bzw.)} \quad s^2 = \frac{n}{n-1} \tilde{s}^2
+    \end{equation*}
+    \item \textbf{Standardabweichung}:
+    \begin{equation*}
+      s = \sqrt{s^2} \quad \text{bzw.} \quad \tilde{s} = \sqrt{\tilde{s}^2}
+    \end{equation*}
+    \item \textbf{Spannweite}:
+    \begin{equation*}
+      R = x_{\max} - x_{\min}
+    \end{equation*}
+    \item \textbf{Quantile}:
+    \begin{equation*}
+      Q_p = 
+      \begin{cases}
+        x_{k}, & \text{für } n \cdot p \text{ ganzzahlig} \\
+        x_{\lceil n \cdot p \rceil}, & \text{sonst}
+      \end{cases}
+    \end{equation*}
+  \end{itemize}
+
+  \includegraphics[width=\linewidth]{assets/Boxplot.png}
+
+\end{multicols*}
+
+\includepdf[pages=-, fitpaper=true]{assets/STS_TabellenVerteilungen.pdf}
+\end{document}
