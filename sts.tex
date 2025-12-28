@@ -176,6 +176,83 @@
 
   \includegraphics[width=\linewidth]{assets/Boxplot.png}
 
+  \columnbreak
+
+  \subsection*{Kovarianz und Korrelation}
+  \begin{itemize}
+    \item \textbf{Kovarianz}:
+    \begin{equation*}
+      \tilde{s}_{xy} = \text{Cov}(X,Y) = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y}) = \overline{xy} - \bar{x} \cdot \bar{y}
+    \end{equation*}
+    \item \textbf{Korrelationskoeffizient nach Pearson}:
+    \begin{equation*}
+      r = \frac{\text{Cov}(X,Y)}{s_X s_Y} = \frac{\tilde{s}_{xy}}{\sqrt{\overline{x^2} - \bar{x}^2} \cdot \sqrt{\overline{y^2} - \bar{y}^2}}
+    \end{equation*}
+    \item $r$ liegt im Intervall $[-1, 1]$
+    \item $r > 0$: positive Korrelation, $r < 0$: negative Korrelation, $r = 0$: keine Korrelation
+    \item $\tilde{s}_{xy}$ und $r$ beschreiben die lineare Abhängigkeit zwischen zwei Merkmalen d.h. wie stark die Merkmale von der Geraden $y = mx + b$ abweichen
+    \item Ist nicht robust gegenüber Ausreissern
+  \end{itemize}
+
+  \subsection*{Rangkorrelation nach Spearman}
+  \begin{itemize}
+    \item Rang:
+    {\small
+    \begin{equation*}
+      rg(x_i) = 
+      \begin{cases}
+        k, & \text{wenn } x_i \text{ der } \\ & k\text{-te kleinste Wert ist} \\
+        \frac{1}{m} \sum_{j=1}^{m} rg(x_{i_j}), & \text{bei } m \text{ gleichen Werten}
+      \end{cases}
+    \end{equation*}
+  }
+    \item Korrelationskoeffizient nach Spearman:
+    \begin{equation*}
+      r_s = 1 - \frac{6 \sum_{i=1}^{n} d_i^2}{n(n^2 - 1)} \quad \text{mit } d_i = rg(x_i) - rg(y_i)
+    \end{equation*}
+    \item $r_s$ beschreibt die monotone Abhängigkeit zwischen zwei Merkmalen
+    \item Ist robust gegenüber Ausreissern
+  \end{itemize}
+
+  \section*{Kombinatorik}
+  \subsection*{Grundlagen}
+  \begin{itemize}
+    \item \textbf{Multiplikationsregel}: Wenn ein Vorgang in $m$ Arten und ein zweiter Vorgang in $n$ Arten durchgeführt werden kann, dann können beide Vorgänge in $m \cdot n$ Arten durchgeführt werden.
+    \item \textbf{Additionsregel}: Wenn ein Vorgang in $m$ Arten und ein zweiter Vorgang in $n$ Arten durchgeführt werden kann, und beide Vorgänge sich gegenseitig ausschließen, dann können beide Vorgänge in $m + n$ Arten durchgeführt werden.
+  \end{itemize}
+  \subsection*{Binomialkoeffizient}
+  \begin{equation*}
+    \binom{n}{k} = \frac{n!}{k!(n-k)!}
+  \end{equation*}
+  \begin{itemize}
+    \item Anzahl der Möglichkeiten, aus $n$ Elementen $k$ Elemente ohne Zurücklegen und ohne Beachtung der Reihenfolge auszuwählen
+    \item $n$: Gesamtanzahl der Elemente
+    \item $k$: Anzahl der auszuwählenden Elemente
+    \item $\binom{n}{0} = 1$, $\binom{n}{n} = 1$, $\binom{n}{1} = n$
+    \item Symmetrie: $\binom{n}{k} = \binom{n}{n-k}$
+    \item Rekursion: $\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$
+    \item Binomischer Lehrsatz: $(x + y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{n-k} y^k$
+    \item Summe der Binomialkoeffizienten: $\sum_{k=0}^{n} \binom{n}{k} = 2^n$
+  \end{itemize}
+
+\begin{center}
+\textbf{Kombinatorische Auswahlmöglichkeiten}
+\end{center}
+
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|>{\centering\arraybackslash}m{0.28\linewidth}
+                |>{\centering\arraybackslash}m{0.28\linewidth}
+                |>{\centering\arraybackslash}m{0.28\linewidth}|}
+\hline
+ & \textbf{Mit Zurücklegen} & \textbf{Ohne Zurücklegen} \\ \hline
+  \textbf{Mit Reihenfolge} & $n^k$ & $\frac{n!}{(n-k)!}$ \\
+    & \textit{Zahlenschloss} & \textit{Rennen} \\ \hline
+    
+  \textbf{Ohne Reihenfolge} & $\binom{n+k-1}{k}$ & $\binom{n}{k}$ \\
+    & \textit{Warenwahl} & \textit{Gruppenwahl} \\ \hline
+\end{tabular}
+
 \end{multicols*}
 
 \includepdf[pages=-, fitpaper=true]{assets/STS_TabellenVerteilungen.pdf}
