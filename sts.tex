@@ -13,6 +13,7 @@
 \usepackage{makecell}
 \usepackage{graphicx}
 \usepackage{pdfpages}
+\usepackage{mathtools}
 
 % Kompakte Darstellung
 \setlength{\parindent}{0pt}
@@ -529,9 +530,136 @@
 
 \pagebreak
 
+\begin{multicols}{2}
+  \setlength{\premulticols}{1pt}
+  \setlength{\postmulticols}{1pt}
+  \setlength{\multicolsep}{1pt}
+  \setlength{\columnsep}{2pt}
+{\small
 \section*{Wichtigste Tabellen}
 \subsection*{Vertrausensintervalle zum Niveau $\gamma$}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|>{\centering\arraybackslash}m{0.1\linewidth}
+                |>{\centering\arraybackslash}m{0.1\linewidth}
+                |>{\centering\arraybackslash}m{0.23\linewidth}
+                |>{\centering\arraybackslash}m{0.15\linewidth}
+                |>{\centering\arraybackslash}m{0.12\linewidth}
+                |>{\centering\arraybackslash}m{0.15\linewidth}|}
+\hline
+Verteilung der Grundgesamtheit & zu schätzender Parameter & Schätzfunktion & Zugehörige standardisierte Zufallsvariable & Verteilung und benötigte Quantile & Zufalls-variablen für Intervallgrenzen \\ 
+\hline
+Normal-verteilung, Varianz bekannt & 
+$\mu$ & 
+\begin{equation*}
+  \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+\end{equation*} & 
+\begin{equation*}
+  Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}
+\end{equation*} & 
+Standard-normal-verteilung $c = u_p$ mit $p = \frac{1 + \gamma}{2}$ & 
+\begin{equation*}
+  \Theta_u = \bar{x} - c \cdot \frac{\sigma}{\sqrt{n}}
+\end{equation*} \newline \begin{equation*}
+  \Theta_o = \bar{x} + c \cdot \frac{\sigma}{\sqrt{n}}
+\end{equation*} \\
+\hline
+Normal-verteilung, Varianz unbekannt und $n \leq 30$ (sonst Fall 1 mit $s$ statt $\sigma$) & 
+$\mu$ & 
+\begin{equation*}
+  \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+\end{equation*} \newline \begin{equation*}
+  S^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
+\end{equation*} & 
+\begin{equation*}
+  T = \frac{\bar{X} - \mu}{S / \sqrt{n}}
+\end{equation*} &
+t-Verteilung mit $f = n - 1$ Freiheitsgraden, $c = t_{f, p}$ mit $p = \frac{1 + \gamma}{2}$ &
+\begin{equation*}
+  \Theta_u = \bar{x} - c \cdot \frac{S}{\sqrt{n}}
+\end{equation*} \newline \begin{equation*}
+  \Theta_o = \bar{x} + c \cdot \frac{S}{\sqrt{n}}
+\end{equation*} \\
+\hline
+Normal-verteilung &
+$\sigma^2$ &
+\begin{equation*}
+  \bar{X} = \frac{1}{n} \sum_{i=1}^{n} X_i
+\end{equation*} \newline \begin{equation*}
+  S^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2
+\end{equation*} &
+\begin{equation*}
+  Z = \frac{(n-1) S^2}{\sigma^2}
+\end{equation*} &
+Chi-Quadrat-Verteilung mit $f = n - 1$, $c_1 = z_{p_1; f}$, $c_2 = z_{p_2; f}$ mit $p_1 = \frac{1 - \gamma}{2}$, $p_2 = \frac{1 + \gamma}{2}$ &
+\begin{equation*}
+  \Theta_u = \frac{(n-1) S^2}{c_2}
+\end{equation*} \newline \begin{equation*}
+  \Theta_o = \frac{(n-1) S^2}{c_1}
+\end{equation*} \\
+\hline
+Bernoulli-Verteilung mit $n \hat{p} (1-\hat{p}) > 9$ &
+$p$ &
+\begin{equation*}
+  \bar{X} = \frac{1}{n} \sum_{i=1}^{n} X_i
+\end{equation*} \newline $X_i$ 0 oder 1 mit \newline $P(X_i = 1) = p$ &
+\begin{equation*}
+  U = \frac{\bar{X} - p}{\sqrt{\frac{p(1-p)}{n}}}
+\end{equation*} &
+Standard-normal-verteilung $c = u_p$ mit $p = \frac{1 + \gamma}{2}$ &
+$\Theta_u = \bar{x} - c \cdot$ $\sqrt{\frac{\bar{x}(1-\bar{x})}{n}}$
+\newline \newline
+$\Theta_o = \bar{x} + c \cdot$ $\sqrt{\frac{\bar{x}(1-\bar{x})}{n}}$ \\
+\hline
 \end{tabular}
+}
+
+\subsection*{Diskrete und Stetige Verteilungen}
+{\small
+\begin{tabular}{|>{\centering\arraybackslash}m{0.2\linewidth}
+                |>{\centering\arraybackslash}m{0.32\linewidth}
+                |>{\centering\arraybackslash}m{0.4\linewidth}|}
+\hline
+& \textbf{Diskrete Verteilungen} & \textbf{Stetige Verteilungen} \\
+\hline
+\textbf{Dichtefuntion / PMF / PDF} & $f(x) = P(X = x)$ & $f(x) = F'(x) \neq P(X=x)$ \\
+\hline
+\textbf{Kumulative Verteilungsfunktion / CDF} & $F(x) = P(X \leq x) = \sum_{t \leq x} f(t)$ & $F(x) = P(X \leq x) = \int_{-\infty}^{x} f(t) dt$ \\
+\hline
+\textbf{Wahrscheinlich-keiten} & \begin{equation*}
+P(a \leq X \leq b) = \sum_{x=a}^{b} f(x)
+\end{equation*} \newline \begin{equation*}
+P(a < X \leq b) = \sum_{x=a+1}^{b} f(x)
+\end{equation*} \newline \begin{equation*}
+P(a < X < b) = \sum_{x=a+1}^{b-1} f(x)
+\end{equation*} \newline \begin{equation*}
+P(a < X) = 1 - F(a)
+\end{equation*} & $$\begin{rcases}
+  P(a \leq X \leq b) \\
+  P(a < X \leq b) \\
+  P(a < X < b)
+  \end{rcases} \quad = \int_{a}^{b} f(x) dx$$ \newline \begin{equation*}
+P(a < X) = 1 - F(a)
+\end{equation*} \\
+\hline
+\textbf{Erwartungswert} & 
+\begin{equation*}
+  E(X) = \sum_{x \in \mathbb{R}} x \cdot f(x)
+\end{equation*} & 
+\begin{equation*}
+  E(X) = \int_{-\infty}^{\infty} x \cdot f(x) dx
+\end{equation*} \\
+\hline
+\textbf{Varianz} & 
+\begin{equation*}
+  Var(X) = \sum_{x \in \mathbb{R}} (x - E(X))^2 \cdot f(x)
+\end{equation*} \ & 
+\begin{equation*}
+  Var(X) = \int_{-\infty}^{\infty} (x - E(X))^2 \cdot f(x) dx
+\end{equation*} \\
+\hline
+\textbf{Graphische Darstellung von $f(x)$ und $F(x)$} & Stabdiagramm & Graph \\
+\hline
+\end{tabular}
+}
+\end{multicols}
 \includepdf[pages=-, fitpaper=true]{assets/STS_TabellenVerteilungen.pdf}
 \end{document}
