@@ -253,7 +253,285 @@
     & \textit{Warenwahl} & \textit{Gruppenwahl} \\ \hline
 \end{tabular}
 
+\section*{Elementare Wahrscheinlichkeitsrechnung}
+\subsection*{Begriffe}
+\begin{itemize}
+  \item \textbf{Experiment}: Vorgang, der zu einem Ergebnis führt
+  \item \textbf{Ergebnis}: Resultat eines Experiments
+  \item \textbf{Ergebnismenge} ($\Omega$): Menge aller möglichen Ergebnisse eines Experiments
+  \item \textbf{Ereignis} ($A$): Teilmenge der Ergebnismenge
+  \item \textbf{Sicheres Ereignis}: Ereignis, das immer eintritt ($A = \Omega$)
+  \item \textbf{Unmögliches Ereignis}: Ereignis, das nie eintritt ($A = \emptyset$)
+\end{itemize}
+
+\subsection*{Diskrete Wahrscheinlichkeitsräume}
+\begin{itemize}
+  \item \textbf{Laplace-Experiment}: Experiment mit endlicher Ergebnismenge, bei dem alle Ergebnisse gleich wahrscheinlich sind
+  \item \textbf{Wahrscheinlichkeit eines Ereignisses}:
+  \begin{equation*}
+    P(A) = \frac{|A|}{|\Omega|}
+  \end{equation*}
+  \item \textbf{Axiome der Wahrscheinlichkeitsrechnung}:
+  \begin{itemize}
+    \item $0 \leq P(A) \leq 1$ für jedes Ereignis $A$
+    \item $P(\Omega) = 1$
+    \item Für paarweise disjunkte Ereignisse $A_1, A_2, \ldots$ gilt: $P\left(\bigcup_{i} A_i\right) = \sum_{i} P(A_i)$
+    \item Wenn nicht disjunkt: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+    \item Komplementregel: $P(\Omega \backslash A) = 1 - P(A)$
+  \end{itemize}
+\end{itemize}
+
+\subsection*{Lage- und Streumasse}
+\begin{itemize}
+  \item \textbf{Lagemasse}: Beschreiben die zentrale Tendenz einer Verteilung
+  \item \textbf{Streumasse}: Beschreiben die Variabilität oder Streuung der Daten
+  \item \textbf{Erwartungswert}:
+  \begin{equation*}
+    \mu = E(X) = \sum_{i} x_i \cdot P(X = x_i)
+  \end{equation*}
+  \item \textbf{Varianz}:
+  \begin{equation*}
+    \sigma^2 = Var(X) = \sum_{i} (x_i - \mu)^2 \cdot P(X = x_i) = E(X^2) - \mu^2
+  \end{equation*}
+  \item \textbf{Standardabweichung}:
+  \begin{equation*}
+    \sigma = \sqrt{Var(X)}
+  \end{equation*}
+\end{itemize}
+
+\subsection*{Bedingte Wahrscheinlichkeiten}
+\begin{itemize}
+  \item \textbf{Bedingte Wahrscheinlichkeit}:
+  \begin{equation*}
+    P(A|B) = \frac{P(A \cap B)}{P(B)} \quad \text{für } P(B) > 0
+  \end{equation*}
+  \item \textbf{Multiplikationssatz}:
+  \begin{equation*}
+    P(A \cap B) = P(A|B) \cdot P(B) = P(B|A) \cdot P(A)
+  \end{equation*}
+  \item \textbf{Totale Wahrscheinlichkeit}:
+  \begin{equation*}
+    P(A) = P(A|B) \cdot P(B) + P(A|\overline{B}) \cdot P(\overline{B})
+  \end{equation*}
+  \item \textbf{Satz von Bayes}:
+  \begin{equation*}
+    P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+  \end{equation*}
+\end{itemize}
+\includegraphics[width=\linewidth]{assets/Wahrscheinlichkeitsbaum.png}
+
+\subsection*{Stockhastische Unabhängigkeit}
+\begin{itemize}
+  \item Zwei Ereignisse $A$ und $B$ sind stochastisch unabhängig, wenn gilt:
+  \begin{equation*}
+    P(A \cap B) = P(A) \cdot P(B)
+  \end{equation*}
+  \item Äquivalent dazu:
+  \begin{equation*}
+    P(A|B) = P(A) \quad \text{oder} \quad P(B|A) = P(B)
+  \end{equation*}
+  \item Mehrere Ereignisse $A_1, A_2, \ldots, A_n$ sind stochastisch unabhängig, wenn für jede Teilmenge $I \subseteq \{1, 2, \ldots, n\}$ gilt:
+  \begin{equation*}
+    P\left(\bigcap_{i \in I} A_i\right) = \prod_{i \in I} P(A_i)
+  \end{equation*}
+  \item Die Funktion $f(x,y) = P(X=x, Y=y)$ heisst gemeinsame Verteilung von $X$ und $Y$
+  \item Zufallsvariablen $X$ und $Y$ sind stochastisch unabhängig, wenn für alle $x$ und $y$ gilt:
+  \begin{equation*}
+    P(X=x, Y=y) = P(X=x) \cdot P(Y=y)
+  \end{equation*}
+\end{itemize}
+\subsubsection*{Für stochastisch unabhängige Zufallsvariablen gilt:}
+\begin{itemize}
+  \item $E(XY) = E(X) \cdot E(Y)$
+  \item $Var(X + Y) = Var(X) + Var(Y)$
+\end{itemize}
+
+\section*{Spezielle Verteilungen}
+\subsection*{Die Hypergeometrische Verteilung}
+\begin{itemize}
+  \item Diskrete Verteilung
+  \item Modelliert die Anzahl der Erfolge in einer Stichprobe ohne Zurücklegen
+  \item Parameter: $N$ (Gesamtanzahl), $K$ (Anzahl der Erfolge in der Grundgesamtheit), $n$ (Stichprobengröße)
+  \item Kann bei $n \leq \frac{N}{20}$ durch die Binomialverteilung approximiert werden: $H(N, K, n) \approx B\left(n, \frac{K}{N}\right)$
+  \item Wahrscheinlichkeitsfunktion:
+  \begin{equation*}
+    P(X = k) = \frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}}
+  \end{equation*}
+  \item Erwartungswert: $E(X) = n \cdot \frac{K}{N}$
+  \item Varianz: $Var(X) = n \cdot \frac{K}{N} \cdot \left(1 - \frac{K}{N} \right) \cdot \frac{N-n}{N-1}$
+\end{itemize}
+
+\subsection*{Die Bernoulli-Verteilung}
+\begin{itemize}
+  \item Diskrete Verteilung
+  \item Modelliert ein Experiment mit zwei möglichen Ergebnissen (Erfolg oder Misserfolg)
+  \item Parameter: $p$ (Wahrscheinlichkeit für Erfolg)
+  \item Wahrscheinlichkeitsfunktion:
+  \begin{equation*}
+    P(X = 1) = p, \quad P(X = 0) = 1 - p
+  \end{equation*}
+  \item Erwartungswert: $E(X) = E(X^2) = p$
+  \item Varianz: $Var(X) = p(1 - p)$
+\end{itemize}
+
+\subsection*{Die Binomialverteilung}
+\begin{itemize}
+  \item Diskrete Verteilung
+  \item Modelliert die Anzahl der Erfolge in einer Serie von unabhängigen Bernoulli-Experimenten
+  \item Parameter: $n$ (Anzahl der Experimente), $p$ (Wahrscheinlichkeit für Erfolg)
+  \item Kann bei $n \geq 50$ und $p \leq 0.1$ durch die Poisson-Verteilung approximiert werden: $B(n, p) \approx P(\lambda = n \cdot p)$
+  \item Wahrscheinlichkeitsfunktion:
+  \begin{equation*}
+    P(X = k) = \binom{n}{k} p^k (1 - p)^{n-k}
+  \end{equation*}
+  \item Erwartungswert: $E(X) = n \cdot p$
+  \item Varianz: $Var(X) = n \cdot p \cdot (1 - p)$
+\end{itemize}
+
+\subsection*{Die Poisson-Verteilung}
+\begin{itemize}
+  \item Diskrete Verteilung
+  \item Modelliert die Anzahl der Ereignisse in einem festen Intervall, wenn die Ereignisse unabhängig und mit konstanter Rate auftreten
+  \item Parameter: $\lambda$ (durchschnittliche Anzahl der Ereignisse pro Intervall)
+  \item Wahrscheinlichkeitsfunktion:
+  \begin{equation*}
+    P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
+  \end{equation*}
+  \item Erwartungswert: $E(X) = \lambda$
+  \item Varianz: $Var(X) = \lambda$
+\end{itemize}
+
+\columnbreak
+
+\subsection*{Gauss'sche Normalverteilung}
+\begin{itemize}
+  \item Stetige Verteilung
+  \item Modelliert viele natürliche Phänomene (z.B. Messfehler, Körpergrößen)
+  \item Parameter: $\mu$ (Erwartungswert), $\sigma$ (Standardabweichung)
+  \item Wahrscheinlichkeitsdichtefunktion:
+  \begin{equation*}
+    f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}
+  \end{equation*}
+  \item Kumulative Verteilungsfunktion:
+  \begin{equation*}
+    \phi_{\mu, \sigma}(x) = P(X \leq x) = \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^{x} e^{-\frac{(t - \mu)^2}{2\sigma^2}} dt
+  \end{equation*}
+  \item Erwartungswert: $E(X) = \mu$
+  \item Varianz: $Var(X) = \sigma^2$
+  \item Standardnormalverteilung: $\mu = 0$, $\sigma = 1$
+  \item Zentraler Grenzwertsatz: Summe vieler unabhängiger Zufallsvariablen nähert sich einer Normalverteilung an
+\end{itemize}
+\includegraphics[width=\linewidth]{assets/Normalverteilung.png}
+
+\columnbreak
+
+\section*{Regression}
+\begin{itemize}
+  \item Gegeben: Datenpunkte $(x_i, y_i)$ für $i = 1, 2, \ldots, n$
+  \item Residuen / Fehler: $\epsilon_i = y_i - \hat{y}_i$ mit $\hat{y}_i$ als geschätzter Wert
+  \item Ziel: Funktion $f(x)$ finden, die die Datenpunkte bestmöglich beschreibt
+\end{itemize}
+\subsection*{Regressionsgerade}
+\begin{itemize}
+  \item Lineare Regression: $f(x) = a x + b$
+  \item Korrelationskoeffizient
+  \begin{equation*}
+    r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2} \cdot \sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2}}
+  \end{equation*}
+  \item Lösungen:
+  \begin{equation*}
+    a = \frac{\tilde{s}_{xy}}{\tilde{s}_x^2} \quad \text{(Geht auch mit den korritierten Varianzen)}
+  \end{equation*}
+  \begin{equation*}
+    b = \bar{y} - a \bar{x}
+  \end{equation*}
+  \begin{equation*}
+    \tilde{s}_{\epsilon}^2 = \tilde{s}_y^2 - \underbrace{\frac{\tilde{s}_{xy}^2}{\tilde{s}_x^2}}_{\tilde{s}_{\hat{y}}^2} \quad \text{(Varianz der Residuen)}
+  \end{equation*}
+  \item Totale Varianz:
+  \begin{equation*}
+    \tilde{s}_y^2 = \tilde{s}_{\hat{y}}^2 + \tilde{s}_{\epsilon}^2
+  \end{equation*}
+  \item Bestimmtheitsmass:
+  \begin{equation*}
+    R^2 = \frac{\tilde{s}_{\hat{y}}^2}{\tilde{s}_y^2} = r^2_{xy}
+  \end{equation*}
+  \item $R^2$ gibt an, wie gut die Regressionsgerade die Daten beschreibt (0 bis 1)
+\end{itemize}
+
+\subsection*{Bestimmung der Regressionsparameter mittels Matrix}
+\begin{itemize}
+  \item Datenpunkte in Vektorform:
+  \begin{equation*}
+    \mathbf{y} =
+    \begin{pmatrix}
+      y_1 \\
+      y_2 \\
+      \vdots \\
+      y_n
+    \end{pmatrix}, \quad
+    \mathbf{A} =
+    \begin{pmatrix}
+      1 & x_1 \\
+      1 & x_2 \\
+      \vdots & \vdots \\
+      1 & x_n
+    \end{pmatrix}
+  \end{equation*}
+  \item Regressionsparameter in Vektorform:
+  \begin{equation*}
+    \mathbf{b} =
+    \begin{pmatrix}
+      b \\
+      a
+    \end{pmatrix}
+  \end{equation*}
+  \item Normalengleichung:
+  \begin{equation*}
+    \mathbf{A}^T \mathbf{A} \mathbf{b} = \mathbf{A}^T \mathbf{y}
+  \end{equation*}
+  \item Lösung:
+  \begin{equation*}
+    \mathbf{b} = (\mathbf{A}^T \mathbf{A})^{-1} \mathbf{A}^T \mathbf{y}
+  \end{equation*}
+  \item Residuenvektor:
+  \begin{equation*}
+    \vec{\mathbf{\epsilon}} = \vec{\mathbf{y}} - \mathbf{A} \vec{\mathbf{b}}
+  \end{equation*}
+\end{itemize}
+
+\section*{Schliessende Statistik}
+\subsection*{Zufallsstichprobe}
+\begin{itemize}
+  \item Stichprobe, bei der jedes Element der Grundgesamtheit die gleiche Wahrscheinlichkeit hat, ausgewählt zu werden
+  \item Wichtig für die Repräsentativität der Stichprobe
+\end{itemize}
+\subsection*{Parameterschätzung}
+\begin{itemize}
+  \item Erwartungstreue Schätzer: $E(\hat{\theta}) = \theta$
+  \item Effizienz: Varianz des Schätzers ist minimal
+  \item Konsistenz: Schätzer konvergiert gegen den wahren Parameterwert bei wachsendem Stichprobenumfang
+\end{itemize}
+
+\subsection*{Vertrauensintervalle}
+\begin{itemize}
+  \item Intervall, das den wahren Parameterwert mit einer bestimmten Wahrscheinlichkeit (Konfidenzniveau) enthält
+  \item Für den Mittelwert bei bekannter Varianz:
+  \begin{equation*}
+    \bar{x} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+  \end{equation*}
+  \item Für den Mittelwert bei unbekannter Varianz:
+  \begin{equation*}
+    \bar{x} \pm t_{\alpha/2, n-1} \cdot \frac{s}{\sqrt{n}}
+  \end{equation*}
+\end{itemize}
 \end{multicols*}
 
+\pagebreak
+
+\section*{Wichtigste Tabellen}
+\subsection*{Vertrausensintervalle zum Niveau $\gamma$}
+\begin{tabular}{|c|c|}
+\end{tabular}
 \includepdf[pages=-, fitpaper=true]{assets/STS_TabellenVerteilungen.pdf}
 \end{document}
