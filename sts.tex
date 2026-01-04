@@ -82,20 +82,21 @@
   \end{equation*}
   \subsubsection*{Klassierte Daten}
   \begin{equation*}
-    f_i = \frac{g(x)}{b_i} \quad \text{mit} \quad g(x) = \frac{h_i}{n}
+    d_i = \frac{f(x)}{b_i} \quad \text{mit} \quad f(x) = \frac{h_i}{n}
   \end{equation*}
   \begin{itemize}
     \item $f_i$: relative Häufigkeit der Ausprägung $i$ (PMF)
     \item $h_i$: absolute Häufigkeit der Ausprägung $i$ 
+    \item $d_i$: Dichte der Klasse $i$ (PDF)
     \item $n$: Gesamtanzahl der Beobachtungen
   \end{itemize}
 
   \subsection*{Summenhäufigkeit}
-  \subsubsection*{Nicht klassierte Daten}
+  \subsubsection*{Diskrete Daten}
   \begin{equation*}
     H(x) = \sum_{j=1}^{x} h_j \quad \text{bzw.} \quad F(x) = \sum_{j=1}^{x} f_j
   \end{equation*}
-  \subsubsection*{Klassierte Daten}
+  \subsubsection*{Stetige Daten}
   \begin{equation*}
     H(x_k) = \sum_{j=1}^{k} h_j \quad \text{bzw.} \quad F(x) = \int_{-\infty}^{x} f(y) \, dy
   \end{equation*}
@@ -124,11 +125,12 @@
   \begin{itemize}
     \item Daten werden in Klassen eingeteilt
     \item Klassenbreite: $b_i = a_{i+1} - a_i$ (mit $a_i$ Klassenuntergrenze)
-    \item Klassenmitte: $M_i = \frac{a_{i+1} - a_i}{2}$ (mit $l$ untere und $u$ obere Klassenbegrenzung)
+    \item Klassenmitte: $M_i = \frac{a_{i+1} + a_i}{2}$ (mit $l$ untere und $u$ obere Klassenbegrenzung)
     \item Dichte: $d_i = \frac{f_i}{b_i}$
   \end{itemize}
 
   \subsection*{Kenngrössen}
+  {\small
   \begin{itemize}
     \item \textbf{Arithmetisches Mittel}:
     \begin{equation*}
@@ -165,19 +167,19 @@
     \begin{equation*}
       R = x_{\max} - x_{\min}
     \end{equation*}
-    \item \textbf{Quantile}:
+
+    \item \textbf{Lineare Interpolation}:
     \begin{equation*}
-      Q_p = 
-      \begin{cases}
-        x_{k}, & \text{für } n \cdot p \text{ ganzzahlig} \\
-        x_{\lceil n \cdot p \rceil}, & \text{sonst}
-      \end{cases}
+      y = y_1 + \frac{(x - x_1)(y_2 - y_1)}{(x_2 - x_1)}
     \end{equation*}
+    \begin{center}
+      Wenn $F(x)$ gesucht ist: $y_1$ untere CDF, $y_2$ obere CDF \\
+      $x_1$ untere Klassenbegrenzung, $x_2$ obere Klassenbegrenzung \\
+      Wenn $Q_p$ gesucht ist: $y_1$ untere Klassenbegrenzung, $y_2$ obere Klassenbegrenzung \\
+      $x_1$ untere CDF, $x_2$ obere CDF
+    \end{center}
   \end{itemize}
-
-  \includegraphics[width=\linewidth]{assets/Boxplot.png}
-
-  \columnbreak
+}
 
   \subsection*{Kovarianz und Korrelation}
   \begin{itemize}
@@ -402,7 +404,23 @@
   \item Varianz: $Var(X) = \lambda$
 \end{itemize}
 
-\columnbreak
+\subsection*{Die Exponentialverteilung}
+\begin{itemize}
+  \item Stetige Verteilung
+  \item Modelliert die Zeit zwischen Ereignissen in einem Poisson-Prozess
+  \item Parameter: $\lambda$ (Ereignisrate)
+  \item Wahrscheinlichkeitsdichtefunktion:
+  \begin{equation*}
+    f(x) = \lambda e^{-\lambda x} \quad \text{für } x \geq 0
+  \end{equation*}
+  \item Kumulative Verteilungsfunktion:
+  \begin{equation*}
+    F(x) = P(X \leq x) = 1 - e^{-\lambda x} \quad \text{für } x \geq 0
+  \end{equation*}
+  \item Erwartungswert: $E(X) = \frac{1}{\lambda}$
+  \item Varianz: $Var(X) = \frac{1}{\lambda^2}$
+  \item Gedächtnislosigkeit: $P(X > s + t | X > s) = P(X > t)$
+\end{itemize}
 
 \subsection*{Gauss'sche Normalverteilung}
 \begin{itemize}
@@ -441,7 +459,7 @@
   \end{equation*}
   \item Lösungen:
   \begin{equation*}
-    a = \frac{\tilde{s}_{xy}}{\tilde{s}_x^2} \quad \text{(Geht auch mit den korritierten Varianzen)}
+    a = \frac{\tilde{s}_{xy}}{\tilde{s}_x^2} \quad \text{(Geht auch mit den korrigierten Varianzen)}
   \end{equation*}
   \begin{equation*}
     b = \bar{y} - a \bar{x}
@@ -514,16 +532,16 @@
   \item Konsistenz: Schätzer konvergiert gegen den wahren Parameterwert bei wachsendem Stichprobenumfang
 \end{itemize}
 
-\subsection*{Vertrauensintervalle}
+\subsection*{Vertrauensintervalle / Konfidenzintervalle}
 \begin{itemize}
   \item Intervall, das den wahren Parameterwert mit einer bestimmten Wahrscheinlichkeit (Konfidenzniveau) enthält
   \item Für den Mittelwert bei bekannter Varianz:
   \begin{equation*}
-    \bar{x} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+    VI = \bar{x} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \quad \text{ siehe Tabelle Zeile 1}
   \end{equation*}
   \item Für den Mittelwert bei unbekannter Varianz:
   \begin{equation*}
-    \bar{x} \pm t_{\alpha/2, n-1} \cdot \frac{s}{\sqrt{n}}
+    VI = \bar{x} \pm t_{\alpha/2, n-1} \cdot \frac{s}{\sqrt{n}} \quad \text{ siehe Tabelle Zeile 2}
   \end{equation*}
 \end{itemize}
 \end{multicols*}
@@ -597,7 +615,7 @@ Chi-Quadrat-Verteilung mit $f = n - 1$, $c_1 = z_{p_1; f}$, $c_2 = z_{p_2; f}$ m
 \end{equation*} \\
 \hline
 Bernoulli-Verteilung mit $n \hat{p} (1-\hat{p}) > 9$ &
-$p$ &
+$p$ (Erfolgswahrscheinlichkeit) &
 \begin{equation*}
   \bar{X} = \frac{1}{n} \sum_{i=1}^{n} X_i
 \end{equation*} \newline $X_i$ 0 oder 1 mit \newline $P(X_i = 1) = p$ &
@@ -608,6 +626,8 @@ Standard-normal-verteilung $c = u_p$ mit $p = \frac{1 + \gamma}{2}$ &
 $\Theta_u = \bar{x} - c \cdot$ $\sqrt{\frac{\bar{x}(1-\bar{x})}{n}}$
 \newline \newline
 $\Theta_o = \bar{x} + c \cdot$ $\sqrt{\frac{\bar{x}(1-\bar{x})}{n}}$ \\
+\hline
+& & & & $c$ aus Tabelle je nach Verteilung  & \\
 \hline
 \end{tabular}
 }
@@ -661,5 +681,54 @@ P(a < X) = 1 - F(a)
 \end{tabular}
 }
 \end{multicols}
+
+\pagebreak
+
+\begin{multicols*}{2}
+  \setlength{\premulticols}{1pt}
+  \setlength{\postmulticols}{1pt}
+  \setlength{\multicolsep}{1pt}
+  \setlength{\columnsep}{2pt}
+
+  \section*{Wichtigste Diagramme}
+  \subsection*{Boxplot}
+  \begin{itemize}
+    \item Visuelle Darstellung der Verteilung eines Merkmals
+    \item Zeigt Median, Quartile, Ausreisser und Spannweite
+    \item Bestandteile:
+    \begin{itemize}
+      \item \textbf{Median} (Q2): Mittlerer Wert der Daten
+      \item \textbf{Unteres Quartil} (Q1): Median der unteren Hälfte der Daten
+      \item \textbf{Oberes Quartil} (Q3): Median der oberen Hälfte der Daten
+      \item \textbf{Interquartilsabstand} (IQR): $IQR = Q3 - Q1$
+      \item \textbf{Whiskers}: Linien, die bis zum letzten Datenpunkt innerhalb von $1.5 \cdot IQR$ von Q1 und Q3 reichen
+      \item \textbf{Ausreisser}: Datenpunkte ausserhalb der Whiskers
+    \end{itemize}
+  \end{itemize}
+  \includegraphics[width=0.7\linewidth]{assets/Boxplot.png}
+  
+  \subsection*{Histogramm}
+  \begin{itemize}
+    \item Grafische Darstellung der Häufigkeitsverteilung eines Merkmals
+    \item Daten werden in Klassen (Intervalle) eingeteilt
+    \item Höhe der Balken entspricht der Häufigkeit oder Dichte der Daten in jeder Klasse
+    \item Wichtige Begriffe:
+    \begin{itemize}
+      \item \textbf{Klassenbreite}: Breite der Intervalle
+      \item \textbf{Absolute Häufigkeit}: Anzahl der Datenpunkte in einer Klasse
+      \item \textbf{Relative Häufigkeit}: Anteil der Datenpunkte in einer Klasse
+      \item \textbf{Dichte}: Relative Häufigkeit dividiert durch die Klassenbreite
+    \end{itemize}
+  \end{itemize}
+  \includegraphics[width=0.3\linewidth]{assets/Histogramm.png}
+
+  \subsection*{Streuungsdiagramm / Scatterplot}
+  \begin{itemize}
+    \item Grafische Darstellung der Beziehung zwischen zwei quantitativen Merkmalen
+    \item Jeder Punkt repräsentiert ein Datenpaar $(x_i, y_i)$
+    \item Hilft, Korrelationen oder Trends zwischen den Merkmalen zu erkennen
+  \end{itemize}
+  \includegraphics[width=0.6\linewidth]{assets/Scatterplot.png}
+\end{multicols*}
 \includepdf[pages=-, fitpaper=true]{assets/STS_TabellenVerteilungen.pdf}
 \end{document}
