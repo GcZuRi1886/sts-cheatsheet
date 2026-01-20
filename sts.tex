@@ -145,6 +145,7 @@
         \frac{x_{\frac{n}{2}} + x_{\frac{n}{2}+1}}{2}, & n \text{ gerade}
       \end{cases}
     \end{equation*}
+    Bei klassierten Daten siehe Quantile mit $p = 0.5$
     \item \textbf{Modalwert}:
     \begin{equation*}
       \hat{x} = x_i \quad \text{mit } h_i = \max(h_1, h_2, \ldots, h_k)
@@ -154,7 +155,7 @@
       \tilde{s}^2 = \frac{1}{n} \sum_{i=1}^{n} {(x_i - \bar{x})}^2 \quad \text{(bei klassierten Daten $x_i = M_i$)}
     \end{equation*}
     \begin{equation*}
-      \tilde{s}^2 = \overline{x^2} - \bar{x}^2 \quad \text{mit} \quad \overline{x^2} = \frac{1}{n} \sum_{i=1}^{n} x_i^2 
+      \tilde{s}^2 = \overline{x^2} - \bar{x}^2 \quad \text{mit} \quad \overline{x^2} = \frac{1}{n} \sum_{i=1}^{n} x_i^2 = \sum_{i=1}^{m} f_i \cdot M_i^2
     \end{equation*}
     \begin{equation*}
       s^2 = \frac{1}{n-1} \sum_{i=1}^{n} {(x_i - \bar{x})}^2 \quad  \text{(bzw.)} \quad s^2 = \frac{n}{n-1} \tilde{s}^2
@@ -167,7 +168,13 @@
     \begin{equation*}
       R = x_{\max} - x_{\min}
     \end{equation*}
-
+    \item \textbf{Quantile}:
+    \begin{equation*}
+      R_p = L + \left( \frac{p - F_{i-1}}{F_{i-1} - F_i} \right) \cdot h_i 
+    \end{equation*}
+    \begin{center}
+      $L$: untere Klassenbegrenzung der Median-Klasse \\
+    \end{center}
     \item \textbf{Lineare Interpolation}:
     \begin{equation*}
       y = y_1 + \frac{(x - x_1)(y_2 - y_1)}{(x_2 - x_1)}
