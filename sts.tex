@@ -145,7 +145,7 @@
         \frac{x_{\frac{n}{2}} + x_{\frac{n}{2}+1}}{2}, & n \text{ gerade}
       \end{cases}
     \end{equation*}
-    Bei klassierten Daten siehe Quantile mit $p = 0.5$
+      Bei klassierten Daten siehe Lineare Interpolation unten ($Q_{0.5}$).
     \item \textbf{Modalwert}:
     \begin{equation*}
       \hat{x} = x_i \quad \text{mit } h_i = \max(h_1, h_2, \ldots, h_k)
@@ -168,13 +168,6 @@
     \begin{equation*}
       R = x_{\max} - x_{\min}
     \end{equation*}
-    \item \textbf{Quantile}:
-    \begin{equation*}
-      R_p = L + \left( \frac{p - F_{i-1}}{F_{i-1} - F_i} \right) \cdot h_i 
-    \end{equation*}
-    \begin{center}
-      $L$: untere Klassenbegrenzung der Median-Klasse \\
-    \end{center}
     \item \textbf{Lineare Interpolation}:
     \begin{equation*}
       y = y_1 + \frac{(x - x_1)(y_2 - y_1)}{(x_2 - x_1)}
@@ -218,7 +211,7 @@
   }
     \item Korrelationskoeffizient nach Spearman:
     \begin{equation*}
-      r_s = 1 - \frac{6 \sum_{i=1}^{n} d_i^2}{n(n^2 - 1)} \quad \text{mit } d_i = rg(x_i) - rg(y_i)
+      r_s = \frac{\sum_{i=1}^{n} (rg(x_i) - \overline{rg(x)})(rg(y_i) - \overline{rg(y)})}{\sqrt{\sum_{i=1}^{n} (rg(x_i) - \overline{rg(x)})^2} \cdot \sqrt{\sum_{i=1}^{n} (rg(y_i) - \overline{rg(y)})^2}}
     \end{equation*}
     \item $r_s$ beschreibt die monotone Abhängigkeit zwischen zwei Merkmalen
     \item Ist robust gegenüber Ausreissern
@@ -226,10 +219,12 @@
 
   \section*{Kombinatorik}
   \subsection*{Grundlagen}
+  {\small
   \begin{itemize}
     \item \textbf{Multiplikationsregel}: Wenn ein Vorgang in $m$ Arten und ein zweiter Vorgang in $n$ Arten durchgeführt werden kann, dann können beide Vorgänge in $m \cdot n$ Arten durchgeführt werden.
     \item \textbf{Additionsregel}: Wenn ein Vorgang in $m$ Arten und ein zweiter Vorgang in $n$ Arten durchgeführt werden kann, und beide Vorgänge sich gegenseitig ausschließen, dann können beide Vorgänge in $m + n$ Arten durchgeführt werden.
   \end{itemize}
+
   \subsection*{Binomialkoeffizient}
   \begin{equation*}
     \binom{n}{k} = \frac{n!}{k!(n-k)!}
@@ -263,6 +258,19 @@
     & \textit{Warenwahl} & \textit{Gruppenwahl} \\ \hline
 \end{tabular}
 
+\begin{itemize}
+  \item Multiplizieren der Warscheinlichkeiten bei:
+  \begin{itemize}
+    \item Mit Reihenfolge oder
+    \item Mit Zurücklegen
+  \end{itemize}
+  \item Addieren der Warscheinlichkeiten bei:
+  \begin{itemize}
+    \item Ohne Reihenfolge und
+    \item Ohne Zurücklegen
+  \end{itemize}
+\end{itemize}
+}
 \section*{Elementare Wahrscheinlichkeitsrechnung}
 \subsection*{Begriffe}
 \begin{itemize}
@@ -445,11 +453,10 @@
   \item Erwartungswert: $E(X) = \mu$
   \item Varianz: $Var(X) = \sigma^2$
   \item Standardnormalverteilung: $\mu = 0$, $\sigma = 1$
+  \item Standardisierung: $Z = \frac{X - \mu}{\sigma}$
   \item Zentraler Grenzwertsatz: Summe vieler unabhängiger Zufallsvariablen nähert sich einer Normalverteilung an
 \end{itemize}
-\includegraphics[width=\linewidth]{assets/Normalverteilung.png}
-
-\columnbreak
+\includegraphics[width=0.9\linewidth]{assets/Normalverteilung.png}
 
 \section*{Regression}
 \begin{itemize}
@@ -573,7 +580,7 @@
 Verteilung der Grundgesamtheit & zu schätzender Parameter & Schätzfunktion & Zugehörige standardisierte Zufallsvariable & Verteilung und benötigte Quantile & Zufalls-variablen für Intervallgrenzen \\ 
 \hline
 Normal-verteilung, Varianz bekannt & 
-$\mu$ & 
+$\mu$ (Erwartungswert) & 
 \begin{equation*}
   \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
 \end{equation*} & 
@@ -588,7 +595,7 @@ Standard-normal-verteilung $c = u_p$ mit $p = \frac{1 + \gamma}{2}$ &
 \end{equation*} \\
 \hline
 Normal-verteilung, Varianz unbekannt und $n \leq 30$ (sonst Fall 1 mit $s$ statt $\sigma$) & 
-$\mu$ & 
+$\mu$ (Erwartungswert) &
 \begin{equation*}
   \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
 \end{equation*} \newline \begin{equation*}
@@ -605,7 +612,7 @@ t-Verteilung mit $f = n - 1$ Freiheitsgraden, $c = t_{f, p}$ mit $p = \frac{1 + 
 \end{equation*} \\
 \hline
 Normal-verteilung &
-$\sigma^2$ &
+$\sigma^2$ (Varianz) &
 \begin{equation*}
   \bar{X} = \frac{1}{n} \sum_{i=1}^{n} X_i
 \end{equation*} \newline \begin{equation*}
@@ -635,6 +642,8 @@ $\Theta_u = \bar{x} - c \cdot$ $\sqrt{\frac{\bar{x}(1-\bar{x})}{n}}$
 $\Theta_o = \bar{x} + c \cdot$ $\sqrt{\frac{\bar{x}(1-\bar{x})}{n}}$ \\
 \hline
 & & & & $c$ aus Tabelle je nach Verteilung  & \\
+\hline
+& & & & $\gamma$ Prozent (0.xx) & \\
 \hline
 \end{tabular}
 }
