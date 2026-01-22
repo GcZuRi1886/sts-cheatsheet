@@ -125,7 +125,7 @@
   \begin{itemize}
     \item Daten werden in Klassen eingeteilt
     \item Klassenbreite: $b_i = a_{i+1} - a_i$ (mit $a_i$ Klassenuntergrenze)
-    \item Klassenmitte: $M_i = \frac{a_{i+1} + a_i}{2}$ (mit $l$ untere und $u$ obere Klassenbegrenzung)
+    \item Klassenmitte: $M_i = \frac{a_{i+1} + a_i}{2}$ (mit $a_i$ Klassenuntergrenze) 
     \item Dichte: $d_i = \frac{f_i}{b_i}$
   \end{itemize}
 
@@ -159,6 +159,9 @@
     \end{equation*}
     \begin{equation*}
       s^2 = \frac{1}{n-1} \sum_{i=1}^{n} {(x_i - \bar{x})}^2 \quad  \text{(bzw.)} \quad s^2 = \frac{n}{n-1} \tilde{s}^2
+    \end{equation*}
+    \begin{equation*}
+      \tilde{s}_{xy} = \overline{xy} - \bar{x} \cdot \bar{y} \quad \text{mit} \quad \overline{xy} = \frac{1}{n} \sum_{i=1}^{n} x_i y_i
     \end{equation*}
     \item \textbf{Standardabweichung}:
     \begin{equation*}
@@ -261,13 +264,11 @@
 \begin{itemize}
   \item Multiplizieren der Warscheinlichkeiten bei:
   \begin{itemize}
-    \item Mit Reihenfolge oder
-    \item Mit Zurücklegen
+    \item Unabhängigen Ereignissen (Ziehen mit Zurücklegen)
   \end{itemize}
   \item Addieren der Warscheinlichkeiten bei:
   \begin{itemize}
-    \item Ohne Reihenfolge und
-    \item Ohne Zurücklegen
+    \item Sich gegenseitig ausschliessenden Ereignissen
   \end{itemize}
 \end{itemize}
 }
@@ -467,9 +468,9 @@
 \subsection*{Regressionsgerade}
 \begin{itemize}
   \item Lineare Regression: $f(x) = a x + b$
-  \item Korrelationskoeffizient
+  \item Korrelationskoeffizient (nach Pearson):
   \begin{equation*}
-    r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2} \cdot \sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2}}
+    r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2} \cdot \sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2}} \approx \frac{\tilde{s}_{xy}}{\tilde{s}_x \tilde{s}_y}
   \end{equation*}
   \item Lösungen:
   \begin{equation*}
@@ -489,7 +490,7 @@
   \begin{equation*}
     R^2 = \frac{\tilde{s}_{\hat{y}}^2}{\tilde{s}_y^2} = r^2_{xy}
   \end{equation*}
-  \item $R^2$ gibt an, wie gut die Regressionsgerade die Daten beschreibt (0 bis 1)
+  \item $R^2$ gibt an, wie gut die Regressionsgerade die Daten beschreibt (0 bis 1 grösser ist besser) 
 \end{itemize}
 
 \subsection*{Bestimmung der Regressionsparameter mittels Matrix}
